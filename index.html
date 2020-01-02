@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Markdown Editor - by Throvn</title>
+    <link href="https://fonts.googleapis.com/css?family=Comfortaa&display=swap" rel="stylesheet"> 
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+    <link rel="stylesheet" href="./assets/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row" style="height: 5vh;"></div>
+        <div class="row" style="height: 90vh;">
+            <div class="rounded-left col-6 bg-dark text-light h-100">
+                <div class="row scroll h-100">
+                    <div id="lines" class="col-1 d-none d-lg-flex text-center border-right border-secondary">
+                        1.<br>
+                    </div>
+                    <div id="edit" contenteditable="true" class="col-11">
+                        ---
+                        <br>
+                        <br>
+                        **Advertisement:**
+                        <br>
+                         - Follow me on [LinkedIn](https://www.linkedin.com/in/louis-stanko-7595a1147/)
+                        <br>
+                         - Or visit my [Github Account](https://throvn.github.io)
+                        <br>
+                        <br>
+                        ---
+                        <br>
+                        <br>
+                        # Heading 1
+                        <br>
+                        ## Heading 2
+                        <br>
+                        ### Heading 3
+                        <br>
+                        #### Heading 4
+                        <br>
+                        ##### Heading 5
+                        <br>
+                        ###### Heading 6
+                        <br>
+                        <br>
+                        ***
+                        <br>
+                        <br>
+                        ## Images
+                        <br>
+                        ![A woman](https://image.freepik.com/free-photo/hair-style-street-fashion-beautiful-girl_1139-844.jpg)
+                        
+                        ![Another woman](https://image.freepik.com/free-photo/fashion-outdoor-beautiful-woman-with-blond-hair-wears-luxurious-black-swimsuit-posing-swimming-pool-luxury-female-lies-crystal-clear-pool_120960-439.jpg "The Stormtroopocat")
+                        <br>
+                        <br>
+                        ____
+                        <br>
+                        <br>
+                        ## Typographic replacements
+                        <br>
+                        (c) (C) (r) (R) (tm) (TM) (p) (P) +-
+                        <br>
+                        <br>
+                        test.. test... test..... test?..... test!....
+                        <br>
+                        <br>
+                        !!!!!! ???? ,, --- -- 
+                        <br>
+                        <br>
+                        ***
+                        <br>
+                        <br>
+                        ## Emphasis
+                        <br>
+                        **This is bold text**
+                        <br>
+                        <br>
+                        __This is bold text__
+                        <br>
+                        <br>    
+                        *This is italic text*
+                        <br>
+                        <br>
+                        _This is italic text_
+                        <br>
+                        <br>
+                        ~~Strikethrough~~
+                        <br>
+                        _____________________
+                        <br>
+                        <br>
+                        ## Blockquotes
+                        <br>
+                        > Blockquotes cannot be nested...
+                        <br>
+                        >> ...at the moment..
+                        <br>
+                        > > > ...feel free to fix that
+                        <br>
+                        <br>
+                        ***
+                        <br>
+                        <br>
+                        ## Code
+                        <br>
+                        ##### Code Blocks
+                        <br>
+                        ```
+                        <br>
+                        Sample text here...
+                        <br>
+                        ```
+                        ``` js
+                        <br>
+                        var foo = function (bar) {
+                        <br>
+                        return bar++; // try indenting this line
+                        <br>
+                        };
+                        <br>
+                        <br>
+                        console.log(foo(5));
+                        <br>
+                        ```
+                        <br>
+                        ##### Or use inline `code`
+                        <br>
+                        <br>
+                        ***
+                        <br>
+                        <br>
+                        ## Links
+                        <br>
+                        [link text](http://example.com)
+                        <br>
+                        <br>
+                        [link with title](http://throvn.github.io/demos/md-editor "title text!")
+                        <br>
+                        Autoconverted link https://github.com/throvn/lil-md-editor (only works with ` http(s):// ` prefix)
+                        <br>
+                        <br>
+                        ---
+                        <br>
+                        <br>
+                        ### Inserted text
+                        <br>
+                            ++Inserted text++
+                        <br>  
+                        <br>
+                            ### Marked text
+                        <br>
+                            ==Marked text==
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        <div id="result" class="rounded-right col-6 bg-light h-100">
+        </div>
+    </div>
+</div>
+<div class="fixed-bottom text-right p-3">
+    <a href="https://www.github.com/Throvn" target="_blank" class="a-profile"><ion-icon name="logo-octocat" class="h1 m-0"></ion-icon><span class="h2">/</span>Throvn</a>
+</div>
+    <script src="./md-rules.js"></script>
+    <script src="./index.js"></script>
+</body>
+</html>

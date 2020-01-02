@@ -1,0 +1,56 @@
+body {
+    background: rgb(215,65,119);
+    background: -moz-linear-gradient(141deg, rgba(215,65,119,1) 0%, rgba(255,233,138,1) 100%);
+    background: -webkit-linear-gradient(141deg, rgba(215,65,119,1) 0%, rgba(255,233,138,1) 100%);
+    background: linear-gradient(141deg, rgba(215,65,119,1) 0%, rgba(255,233,138,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d74177",endColorstr="#ffe98a",GradientType=1); 
+    height: 100vh;
+}
+#result {
+    overflow-y: scroll;
+    height: 100%;
+}
+.scroll {
+    overflow-y: scroll;
+}
+#edit {
+    overflow-x: scroll;
+    display: inline-block;
+    white-space: nowrap;
+    width: 100%;
+}
+.code-inline {
+    color: rgb(78, 204, 163);
+    background-color: rgba(78, 204, 163, 0.08);
+    border-radius: .5rem;
+    padding: 3px;
+}
+.code-block {
+    background-color: #393e46;
+    color: white;
+    padding: .5rem;
+    border-radius: .5rem;
+}
+mark {
+    background-color: rgba(78, 204, 163, 0.1);
+    padding: .25rem;
+    border-radius: .5rem;
+}
+ins {
+    text-decoration: underline;
+    text-decoration-color: rgb(78, 204, 163);
+}
+.quote {
+    border-left: #232931 solid 5px;
+    padding: 5px;
+    line-height: normal;
+}
+.a-profile {
+    transition: .2s;
+    color: #621055;
+}
+.a-profile:hover {
+    transition: .2s;
+    color: #ed6663;
+    text-decoration: none;
+}
