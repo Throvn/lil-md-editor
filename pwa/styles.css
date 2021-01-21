@@ -1,0 +1,24 @@
+.footer-icon {
+    width: 48px !important;
+    background-color: rgb(77, 120, 204) !important;
+}
+
+.footer-icon:hover {
+    background-color: rgb(33, 37, 43) !important;
+}
+
+.footer-text {
+    min-width: 48px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.footer-text:hover {
+    background-color: rgb(33, 37, 43);
+}
+
+.classname{position:absolute; border-bottom: 1px solid green}
+
+.sidebarToggle {
+    cursor: pointer;
+}

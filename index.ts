@@ -1,6 +1,6 @@
-const $editor = document.getElementById("edit"), $result = document.getElementById("result");
-const $scroll = document.getElementsByClassName("scroll")[0];
-
+const $editor = document.getElementById("edit"), 
+      $result = document.getElementById("result");
+const $scroll = (<HTMLDivElement>document.getElementsByClassName("scroll")[0]);
 
 /**
  * Updates the numbers on the left side of the editor
@@ -39,5 +39,6 @@ renderMarkdownPreview()
 
 // Handles the scrolling that the preview is in the same viewport as the editor
 $scroll.onscroll = function (event) {
-    $result.scrollTop = $result.scrollHeight / (event.srcElement.scrollHeight / event.srcElement.scrollTop);
+    const src = <HTMLDivElement> event.srcElement
+    $result.scrollTop = $result.scrollHeight / (src.scrollHeight / src.scrollTop);
 }

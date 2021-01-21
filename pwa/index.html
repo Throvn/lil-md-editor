@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+  <script src="./assets/showdown-1.9.1.min.js"></script>
+  <script>
+    var show = true;
+    var sidebarVisible = true;
+    var examplesVisible = false;
+  </script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+    integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    :root {
+      --dark: #1f2937;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark position-fixed w-100"
+    style="background-color: var(--dark); z-index: 1000;">
+    <a class="navbar-brand" href="#"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+      aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item active">
+          <a class="nav-link" href="#"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-markdown"
+              fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M14 3H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2z" />
+              <path fill-rule="evenodd"
+                d="M9.146 8.146a.5.5 0 0 1 .708 0L11.5 9.793l1.646-1.647a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 0-.708z" />
+              <path fill-rule="evenodd" d="M11.5 5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 1 .5-.5z" />
+              <path
+                d="M3.56 11V7.01h.056l1.428 3.239h.774l1.42-3.24h.056V11h1.073V5.001h-1.2l-1.71 3.894h-.039l-1.71-3.894H2.5V11h1.06z" />
+            </svg> <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            File
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <h6 class="dropdown-header">Export As</h6>
+            <a class="dropdown-item" onclick="downloadPDF()" href="#">PDF</a>
+            <a class="dropdown-item" onclick="downloadHTML()" href="#">HTML</a>
+            <a class="dropdown-item" onclick="downloadMD()" href="#">Text (.md)</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Sidebar
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <h6 class="dropdown-header">Settings</h6>
+            <a class="dropdown-item sidebarToggle" id="examplesClick">Show Examples</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item sidebarToggle" id="sidebarClick">Toggle Sidebar</a>
+          </div>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <div class="btn-group my-2 my-sm-0 mr-1">
+          <button type="button" onclick="downloadAll()" class="download-button btn btn-primary">Download</button>
+          <button type="button" class="download-button btn btn-primary dropdown-toggle dropdown-toggle-split"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" onclick="downloadPDF()" href="#">PDF</a>
+            <a class="dropdown-item" onclick="downloadHTML()" href="#">HTML</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" onclick="downloadMD()" href="#">Text (.md)</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </nav>
+
+
+  <div aria-live="polite" aria-atomic="true" style="position: absolute; min-height: 200px;">
+    <div id="toasts" style="position: fixed; bottom: 35px; right: 10px; z-index: 1000;">
+
+
+      <div class="toast" data-autohide="false" data-animation="false">
+        <div class="toast-header">
+          <strong class="mr-auto"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-info-circle"
+              fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+              <path
+                d="M8.93 6.588l-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588z" />
+              <circle cx="8" cy="4.5" r="1" />
+            </svg> Information</strong>
+          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="toast-body">
+          Press the bell icon below to get all errors or warnings in your Markdown.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container-fluid vh-100" style="z-index: 1;">
+    <div class="row h-100 justify-content-center align-self-center">
+      <div class="col-12 my-auto h-100 bg-light">
+        <div class="row h-100 justify-content-center align-self-center align-items-center">
+          <div class="col-2 my-auto h-75">
+            <div id="sidebar" class="p-2 overflow-auto h-100 rounded bg-white">
+              <div class="row h-100 overflow-hidden">
+                <div class="col-3 h-100 border-right">
+                  <div class="nav flex-column nav-pills" id="v-pills-settings" role="tablist"
+                    aria-orientation="vertical">
+                    <a class="nav-link active" id="v-pills-instructions-tab" data-toggle="pill"
+                      href="#v-pills-instructions" role="tab" aria-controls="v-pills-instructions" aria-selected="false">
+                      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark-text"
+                        fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
+                        <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z" />
+                        <path fill-rule="evenodd"
+                          d="M5 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
+                      </svg>
+                    </a>
+                    <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+                      aria-controls="v-pills-settings" aria-selected="true">
+                      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-sliders" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                          d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3h9.05zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8h2.05zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1h9.05z" />
+                      </svg>
+                    </a>
+                    <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+                      aria-controls="v-pills-messages" aria-selected="false">
+                      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-code-square" fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                          d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                        <path fill-rule="evenodd"
+                          d="M6.854 4.646a.5.5 0 0 1 0 .708L4.207 8l2.647 2.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0zm2.292 0a.5.5 0 0 0 0 .708L11.793 8l-2.647 2.646a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708 0z" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+                <div class="col-9">
+                  <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-instructions" role="tabpanel"
+                      aria-labelledby="v-pills-profile-tab">
+
+                      <h2>Instructions</h2>
+                      <hr>
+                      <h5>The <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bell-fill"
+                          fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
+                        </svg> - Icon</h5>
+                      <p>The icon is on the bottom right corner. By clicking on it you toggle all the warnings and
+                        errors. Changes to <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bell"
+                          fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2z" />
+                          <path fill-rule="evenodd"
+                            d="M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z" />
+                        </svg> - Icon once all errors and warnings are resloved.</p>
+                      <h5>The Download Button</h5>
+                      <p>The button turns green once all errors and warnings are resolved. By clicking on it you
+                        download the bundle as a Zip-Archive. You can also download each of the files individually by
+                        clicking on the <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-caret-down-fill"
+                          fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                        </svg> - Icon.</p>
+
+                      <h5>Changing the Filename</h5>
+                      <p>Click on the Filename.md title. Don't add a .md extension to your filename. Type your new
+                        filename.</p>
+
+                      <h5>Compiling with errors</h5>
+                      <p>You can absolutely compile and download the document with errors and warnings. These are just
+                        guidlines... admittedly these are sometimes a little too overcautious.</p>
+
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-home-tab">
+
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
+                      aria-labelledby="v-pills-messages-tab">
+                      <center> <h2># Heading 1</h2>  • <br> • <br> • <br> <h6>###### Heading 6</h6> </center> <hr> <em>*Italic*</em> <br> <b>**Bold**</b> <hr> [Link](http://link.com)  <br>  ![Image](http://url/a.png) <hr> * Ordered List <br> 1. Unordered List <hr> --- <hr> <code>`Inline code`</code> <br> <br> <pre>```<br> code block <br>```</pre><hr> <a href="https://commonmark.org/help/">More Examples</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+            </div>
+          </div>
+          <div class="col-5 my-auto h-75">
+            <div oninput="updateName()" id="filename-input" type="text"
+              style="outline: none; height: 48px; overflow: hidden;" class="w-100 border-0 d-none h1 font-weight-bold"
+              contenteditable="">Filename<span class="text-muted user-select-none">.md</span></div>
+            <div class="h-100 w-100 bg-white">
+              <div style="border: none; outline-style: none; resize: none;" class="w-100 h-100 rounded" id="text-input"
+                oninput="lintMD();">Type **Markdown** here.</div>
+            </div>
+          </div>
+          <div class="col-5 my-auto h-75">
+            <h1 id="filename-output" class="text-truncate w-100 border-0 font-weight-bold d-none"> </h1>
+            <div class="h-100 w-100 p-2 rounded bg-white">
+              <div id="result" class="w-100 h-100" style="overflow-y: scroll;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <footer class="w-100 text-muted position-fixed" style="background-color: var(--dark); bottom: 0;">
+
+    <div class="text-light text-center d-inline-block footer-icon">
+      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-markdown-fill" fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd"
+          d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm11.5 1a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L11 9.293V5.5a.5.5 0 0 1 .5-.5zM3.56 7.01V11H2.5V5.001h1.208l1.71 3.894h.04l1.709-3.894h1.2V11H7.294V7.01h-.057l-1.42 3.239h-.773l-1.428-3.24H3.56z" />
+      </svg>
+    </div>
+    <div class="footer-text d-inline-block"
+      onclick="show = !show; show ? $('.toast').toast('show') : $('.toast').toast('hide'); ">
+      <svg width=".85em" height=".85em" viewBox="0 0 16 16" class="bi bi-x-circle" fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+        <path fill-rule="evenodd"
+          d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+      </svg> <span id="errors">0</span>
+
+      <svg width="1.0625em" height="1em" viewBox="0 0 17 16" class="bi bi-exclamation-triangle" fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd"
+          d="M7.938 2.016a.146.146 0 0 0-.054.057L1.027 13.74a.176.176 0 0 0-.002.183c.016.03.037.05.054.06.015.01.034.017.066.017h13.713a.12.12 0 0 0 .066-.017.163.163 0 0 0 .055-.06.176.176 0 0 0-.003-.183L8.12 2.073a.146.146 0 0 0-.054-.057A.13.13 0 0 0 8.002 2a.13.13 0 0 0-.064.016zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z" />
+        <path
+          d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z" />
+      </svg> <span id="warnings">0</span>
+    </div>
+    <div id="bell-thing" class="footer-text d-inline-block float-right text-center"
+      onclick="show = !show; show ? $('.toast').toast('show') : $('.toast').toast('hide'); ">
+      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-bell-fill" fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
+      </svg>
+    </div>
+  </footer>
+
+  <!-- jQuery and JS bundle w/ Popper.js -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous">
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
+  </script>
+  <script src="./assets/markdown-it.min.js"></script>
+  <script src="./assets/markdownlint-browser.min.js"></script>
+  <script src="./assets/jszip.min.js"></script>
+  <script src="./assets/jsPDF.debug.js"></script>
+  <script src="./assets/FileSaver.min.js"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>

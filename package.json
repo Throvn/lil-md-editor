@@ -1,0 +1,25 @@
+{
+  "name": "lil-md-editor",
+  "version": "1.0.0",
+  "description": "This is a minimal markdown editor.",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc index.ts md-rules.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Throvn/lil-md-editor.git"
+  },
+  "keywords": [
+    "markdown",
+    "fun",
+    "typescript"
+  ],
+  "author": "Louis Stanko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Throvn/lil-md-editor/issues"
+  },
+  "homepage": "https://github.com/Throvn/lil-md-editor#readme"
+}
